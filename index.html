@@ -1,0 +1,306 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="퇴직금 계산기에서 입사일·퇴사일과 최근 3개월 급여, 상여금, 연차수당을 입력해 예상 퇴직금과 퇴직소득세, 지방소득세, 퇴직금 실수령액을 확인하세요. 고용노동부와 국세청 기준을 참고한 모바일 맞춤 간편 계산 도구입니다.">
+  <meta name="robots" content="index, follow">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="ko_KR">
+  <meta property="og:title" content="퇴직금 계산기 | 퇴직금 실수령액·퇴직소득세 간편 계산">
+  <meta property="og:description" content="입사일과 급여를 입력해 예상 퇴직금, 퇴직소득세, 지방소득세와 실수령액을 확인하세요.">
+  <title>퇴직금 계산기 | 퇴직금 실수령액·퇴직소득세 간편 계산</title>
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@type":"FAQPage",
+    "mainEntity":[
+      {"@type":"Question","name":"퇴직금은 어떻게 계산하나요?","acceptedAnswer":{"@type":"Answer","text":"일반적으로 1일 평균임금에 30일과 계속근로일수 ÷ 365를 곱해 계산합니다. 평균임금은 퇴직일 전 3개월 임금 총액을 실제 산정기간의 총일수로 나누어 추정합니다."}},
+      {"@type":"Question","name":"퇴직금에도 세금이 붙나요?","acceptedAnswer":{"@type":"Answer","text":"퇴직금에는 퇴직소득세와 그에 따른 지방소득세가 부과될 수 있습니다. 근속연수공제와 환산급여공제 등이 적용되므로 일반 근로소득과 계산 구조가 다릅니다."}},
+      {"@type":"Question","name":"상여금도 퇴직금에 포함되나요?","acceptedAnswer":{"@type":"Answer","text":"정기적·일률적으로 지급되고 임금성이 인정되는 상여금은 평균임금 산정에 반영될 수 있습니다. 지급 규정과 실제 지급 내역을 확인해야 합니다."}},
+      {"@type":"Question","name":"1년 미만 근무하면 퇴직금이 없나요?","acceptedAnswer":{"@type":"Answer","text":"원칙적으로 계속 근로기간이 1년 이상인 근로자에게 퇴직급여가 적용됩니다. 다만 개별 계약과 근무 형태에 따라 확인이 필요할 수 있습니다."}},
+      {"@type":"Question","name":"예상 실수령액과 실제 지급액이 다른 이유는 무엇인가요?","acceptedAnswer":{"@type":"Answer","text":"임금 항목의 산입 여부, 휴직 등 제외기간, 통상임금 비교, 원천징수 정산, 세법과 회사 규정에 따라 실제 지급액과 차이가 날 수 있습니다."}}
+    ]
+  }
+  </script>
+  <style>
+    :root { --navy:#15324b; --blue:#1769aa; --blue-dark:#0d4f85; --sky:#eaf5fc; --ink:#182633; --muted:#607080; --line:#dce5eb; --card:#fff; --danger:#b42318; --success:#087443; }
+    * { box-sizing:border-box; }
+    html { scroll-behavior:smooth; }
+    body { margin:0; color:var(--ink); background:#f4f8fb; font-family:system-ui,-apple-system,"Segoe UI",Roboto,"Noto Sans KR",sans-serif; font-size:16px; line-height:1.55; word-break:keep-all; }
+    .wrap { width:min(100% - 32px, 760px); margin:auto; }
+    header { background:linear-gradient(135deg,#102d45,#1a5f91); color:#fff; padding:34px 0 30px; }
+    .brand { font-size:.88rem; font-weight:750; letter-spacing:.03em; opacity:.9; }
+    h1 { margin:9px 0 8px; font-size:clamp(1.72rem,6vw,2.5rem); line-height:1.22; letter-spacing:-.04em; }
+    .intro { margin:0; color:#dcecf8; font-size:1rem; }
+    .reference { display:inline-flex; align-items:center; margin-top:16px; padding:6px 10px; border:1px solid rgba(255,255,255,.24); border-radius:99px; color:#e6f3fc; background:rgba(255,255,255,.08); font-size:.76rem; }
+    main { padding:20px 0 48px; }
+    .panel, .content { background:var(--card); border:1px solid var(--line); border-radius:16px; box-shadow:0 4px 18px rgba(26,61,88,.06); }
+    .panel { padding:20px; }
+    h2 { margin:0 0 4px; font-size:1.24rem; letter-spacing:-.03em; }
+    .hint { margin:0 0 20px; color:var(--muted); font-size:.91rem; }
+    .form-section { border:0; padding:0; margin:0 0 26px; }
+    .form-section + .form-section { border-top:1px solid var(--line); padding-top:22px; }
+    legend { padding:0; margin-bottom:12px; font-weight:750; font-size:1.02rem; }
+    .grid { display:grid; grid-template-columns:1fr; gap:14px; }
+    label { display:block; font-size:.9rem; font-weight:700; }
+    .required { color:var(--danger); }
+    input { display:block; width:100%; margin-top:6px; min-height:50px; padding:11px 12px; border:1px solid #b9c8d2; border-radius:10px; background:#fff; color:var(--ink); font:inherit; }
+    input:focus { outline:3px solid rgba(23,105,170,.2); border-color:var(--blue); }
+    .field-note { display:block; margin-top:4px; color:var(--muted); font-size:.78rem; font-weight:400; }
+    button { width:100%; min-height:54px; border:0; border-radius:11px; background:var(--blue); color:#fff; font:inherit; font-weight:800; cursor:pointer; box-shadow:0 3px 8px rgba(13,79,133,.18); transition:background .18s,transform .18s; }
+    button:hover { background:var(--blue-dark); }
+    button:active { transform:translateY(1px); }
+    .error { display:none; margin:16px 0 0; padding:12px 13px; border-radius:10px; background:#fff1f0; color:var(--danger); font-size:.91rem; }
+    .error.show { display:block; }
+    .result { display:none; margin-top:22px; padding:20px; border:1px solid #b9d8eb; border-radius:16px; background:var(--sky); }
+    .result.show { display:block; }
+    .result-title { color:#205170; font-size:.9rem; font-weight:800; }
+    .amount { margin:3px 0 16px; color:var(--navy); font-size:clamp(1.85rem,8vw,2.5rem); font-weight:850; letter-spacing:-.045em; }
+    .amount small { font-size:.9rem; font-weight:700; }
+    .stats { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+    .stat { padding:12px; border-radius:10px; background:#fff; }
+    .stat span { display:block; color:var(--muted); font-size:.76rem; font-weight:700; }
+    .stat strong { display:block; margin-top:3px; font-size:1rem; }
+    .result-note { margin:14px 0 0; color:#496779; font-size:.8rem; }
+    .field-warning { margin:10px 0 0; padding:10px 11px; border-radius:9px; background:#fff7e9; color:#72511c; font-size:.78rem; }
+    .calculation-details { margin-top:16px; padding-top:15px; border-top:1px solid #c8dfed; }
+    .calculation-details summary { cursor:pointer; color:#205170; font-size:.88rem; font-weight:800; }
+    .calculation-details ul { margin:10px 0 0; padding-left:18px; color:#486577; font-size:.82rem; }
+    .calculation-details li + li { margin-top:5px; }
+    .tax-summary { margin-top:16px; padding-top:16px; border-top:1px solid #c8dfed; }
+    .tax-summary h3 { margin:0 0 9px; color:#205170; font-size:.96rem; }
+    .tax-grid { display:grid; grid-template-columns:1fr; overflow:hidden; border:1px solid #c8dfed; border-radius:10px; background:#fff; }
+    .tax-row { display:flex; align-items:center; justify-content:space-between; gap:12px; padding:10px 12px; color:#486577; font-size:.84rem; }
+    .tax-row + .tax-row { border-top:1px solid #e2edf3; }
+    .tax-row strong { color:var(--ink); font-size:.9rem; }
+    .tax-row.net { padding:13px 12px; background:#f0f8f3; color:#176244; font-weight:800; }
+    .tax-row.net strong { color:var(--success); font-size:1.08rem; }
+    .ad-slot { display:flex; min-height:112px; align-items:center; justify-content:center; margin:26px 0; border:1px dashed #bdccd7; border-radius:12px; background:#edf3f7; color:#7c8d9a; font-size:.75rem; letter-spacing:.04em; }
+    .content { padding:22px 20px; }
+    .content h2 { margin-top:24px; }
+    .content h2:first-child { margin-top:0; }
+    .content p, .content li { color:#3b4d5c; }
+    .content ul { padding-left:20px; }
+    .source-note { margin:0 0 22px; padding:12px 13px; border-left:3px solid #4b89b4; border-radius:0 8px 8px 0; background:#f3f8fb; color:#486577 !important; font-size:.85rem; }
+    .faq { margin-top:28px; padding-top:24px; border-top:1px solid var(--line); }
+    .faq h2 { margin-top:0; }
+    .faq details { padding:14px 0; border-bottom:1px solid var(--line); }
+    .faq summary { cursor:pointer; color:var(--navy); font-weight:750; }
+    .faq details p { margin:9px 0 0; font-size:.91rem; }
+    .footer-note { max-width:680px; margin:0 auto; }
+    footer { padding:0 0 30px; color:var(--muted); font-size:.78rem; text-align:center; }
+    @media (min-width:600px) { header { padding:46px 0 40px; } main { padding-top:32px; } .panel { padding:28px; } .grid.dates { grid-template-columns:1fr 1fr; } .grid.pay, .grid.extra { grid-template-columns:repeat(3,1fr); } .content { padding:28px; } }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="wrap">
+      <div class="brand">생활 계산 도구</div>
+      <h1>퇴직금 계산기</h1>
+      <p class="intro">입사일과 급여를 입력해 예상 퇴직금을 확인하세요.</p>
+      <p class="reference">고용노동부·국세청 기준 참고 · 참고용 예상 계산</p>
+    </div>
+  </header>
+  <main class="wrap">
+    <section class="panel" aria-labelledby="calculator-title">
+      <h2 id="calculator-title">예상 퇴직금 계산</h2>
+      <p class="hint">퇴직일 전 3개월의 실제 달력 일수와 임금을 기준으로 계산합니다.</p>
+      <form id="severance-form" novalidate>
+        <fieldset class="form-section">
+          <legend>재직 기간</legend>
+          <div class="grid dates">
+            <label>입사일 <span class="required">*</span><input id="start-date" type="date" required></label>
+            <label>퇴사일 <span class="required">*</span><input id="end-date" type="date" required></label>
+          </div>
+        </fieldset>
+        <fieldset class="form-section">
+          <legend>최근 3개월 급여 <span class="required">*</span></legend>
+          <div class="grid pay">
+            <label>1개월 전 급여<input id="salary-1" inputmode="numeric" type="number" min="0" step="1" placeholder="예: 3000000" required><span class="field-note">세전 기준 (원)</span></label>
+            <label>2개월 전 급여<input id="salary-2" inputmode="numeric" type="number" min="0" step="1" placeholder="예: 3000000" required><span class="field-note">세전 기준 (원)</span></label>
+            <label>3개월 전 급여<input id="salary-3" inputmode="numeric" type="number" min="0" step="1" placeholder="예: 3000000" required><span class="field-note">세전 기준 (원)</span></label>
+          </div>
+        </fieldset>
+        <fieldset class="form-section">
+          <legend>추가 수당 <span class="field-note">선택 입력 · 최근 1년 기준</span></legend>
+          <div class="grid extra">
+            <label>정기 상여금<input id="bonus" inputmode="numeric" type="number" min="0" step="1" value="0" placeholder="예: 1000000"><span class="field-note">퇴직 전 12개월 지급 총액 (원)</span></label>
+            <label>연차수당<input id="leave-pay" inputmode="numeric" type="number" min="0" step="1" value="0" placeholder="예: 500000"><span class="field-note">평균임금 산입 대상 금액 (원)</span></label>
+            <label>1일 통상임금<input id="ordinary-wage" inputmode="numeric" type="number" min="0" step="1" value="0" placeholder="선택 입력"><span class="field-note">알고 있는 경우에만 입력 (원)</span></label>
+          </div>
+          <p class="field-warning">퇴직으로 인해 비로소 발생한 연차 미사용수당은 평균임금에 포함되지 않을 수 있습니다. 평균임금 산입 대상 금액만 입력해 주세요.</p>
+        </fieldset>
+        <button type="submit">예상 퇴직금 계산하기</button>
+        <div id="error" class="error" role="alert" aria-live="polite"></div>
+      </form>
+      <section id="result" class="result" aria-live="polite" aria-labelledby="result-title">
+        <div id="result-title" class="result-title">예상 세전 퇴직금</div>
+        <div class="amount"><span id="severance">0</span> <small>원</small></div>
+        <div class="stats">
+          <div class="stat"><span>근속기간</span><strong id="service-period">-</strong></div>
+          <div class="stat"><span>1일 평균임금</span><strong id="daily-wage">-</strong></div>
+          <div class="stat"><span>계산에 적용한 1일 임금</span><strong id="applied-wage">-</strong></div>
+        </div>
+        <section class="tax-summary" aria-labelledby="tax-title">
+          <h3 id="tax-title">예상 퇴직소득세</h3>
+          <div class="tax-grid">
+            <div class="tax-row"><span>세전 퇴직금</span><strong id="gross-severance">-</strong></div>
+            <div class="tax-row"><span>퇴직소득세</span><strong id="income-tax">-</strong></div>
+            <div class="tax-row"><span>지방소득세 (퇴직소득세의 10%)</span><strong id="local-tax">-</strong></div>
+            <div class="tax-row net"><span>예상 실수령액</span><strong id="net-severance">-</strong></div>
+          </div>
+        </section>
+        <details class="calculation-details">
+          <summary>계산 근거 보기</summary>
+          <ul id="calculation-basis"></ul>
+        </details>
+      <p class="result-note"><strong>꼭 확인하세요.</strong> 1일 통상임금이 1일 평균임금보다 큰 경우에는 통상임금을 기준으로 퇴직금을 계산해야 할 수 있습니다. 세금 추정에는 일반적인 퇴직소득 과세 구조를 적용했으며, 실제 지급액은 임금 항목의 산입 여부, 휴직 등 제외기간, 취업규칙 및 개별 근로관계에 따라 달라질 수 있습니다.</p>
+      <p class="result-note"><strong>세액 안내:</strong> 세법 개정, 퇴직소득 원천징수 특례, 세액공제·감면, 퇴직연금 수령 방식 및 회사 정산 기준에 따라 실제 퇴직소득세와 지방소득세는 달라질 수 있습니다.</p>
+      </section>
+    </section>
+    <aside class="ad-slot" aria-label="광고 영역">광고 영역</aside>
+    <article class="content">
+      <h2>퇴직금은 어떻게 계산하나요?</h2>
+      <p class="source-note">이 계산기는 고용노동부의 평균임금 산정 안내와 국세청의 퇴직소득세 계산 구조를 참고해 만든 예상 계산 도구입니다. 실제 지급액을 보장하지 않습니다.</p>
+      <p>퇴직금은 원칙적으로 계속 근로한 기간이 1년 이상인 근로자에게 지급됩니다. 이 계산기는 퇴직 전 3개월의 임금과 입력한 수당을 바탕으로 1일 평균임금을 추정합니다.</p>
+      <h2>상여금과 연차수당 반영</h2>
+      <p>정기·일률적으로 지급되는 상여금은 퇴직 전 12개월 지급 총액의 3/12을 평균임금 산정 임금총액에 포함합니다. 연차수당도 평균임금 산입 대상인 입력액의 3/12을 반영합니다. 퇴직으로 인해 새로 발생한 미사용 연차수당은 통상 평균임금에 포함되지 않을 수 있습니다.</p>
+      <aside class="ad-slot" aria-label="광고 영역">광고 영역</aside>
+      <h2>확인해 주세요</h2>
+      <ul><li>급여는 공제 전 세전 금액을 입력하세요.</li><li>상여금·수당의 평균임금 포함 여부는 지급 규정에 따라 달라질 수 있습니다.</li><li>정확한 금액은 회사의 임금대장과 노무 상담을 통해 확인하세요.</li></ul>
+      <h2>퇴직소득세는 어떻게 계산하나요?</h2>
+      <p>예상 세금은 세전 퇴직금에서 근속연수공제를 뺀 뒤 근속연수로 나누어 12배로 환산합니다. 환산급여공제와 기본세율을 적용한 뒤 다시 근속연수를 반영하며, 지방소득세는 산출된 퇴직소득세의 10%로 계산합니다.</p>
+      <section class="faq" aria-labelledby="faq-title">
+        <h2 id="faq-title">퇴직금 계산기 FAQ</h2>
+        <details>
+          <summary>퇴직금은 어떻게 계산하나요?</summary>
+          <p>일반적으로 1일 평균임금 × 30일 × (계속근로일수 ÷ 365) 방식으로 추정합니다. 이 계산기는 퇴직일 전 3개월의 실제 달력 일수를 평균임금 산정기간으로 사용합니다.</p>
+        </details>
+        <details>
+          <summary>퇴직금에도 세금이 붙나요?</summary>
+          <p>퇴직금에는 퇴직소득세와 지방소득세가 부과될 수 있습니다. 퇴직소득세는 근속연수공제와 환산급여공제 등을 반영해 계산합니다.</p>
+        </details>
+        <details>
+          <summary>상여금도 퇴직금에 포함되나요?</summary>
+          <p>정기적·일률적으로 지급되어 임금성이 인정되는 상여금은 평균임금에 반영될 수 있습니다. 회사의 취업규칙, 근로계약, 지급 내역을 함께 확인하세요.</p>
+        </details>
+        <details>
+          <summary>1년 미만 근무하면 퇴직금이 없나요?</summary>
+          <p>원칙적으로 계속 근로기간이 1년 이상인 근로자에게 퇴직급여가 적용됩니다. 근무 형태와 개별 계약에 따라 확인이 필요한 경우가 있습니다.</p>
+        </details>
+        <details>
+          <summary>예상 실수령액과 실제 지급액이 다른 이유는 무엇인가요?</summary>
+          <p>임금 항목의 산입 여부, 휴직 등 제외기간, 통상임금 비교, 원천징수 정산, 세법 및 회사 규정에 따라 실제 지급액이 달라질 수 있습니다.</p>
+        </details>
+      </section>
+    </article>
+  </main>
+  <footer class="wrap"><p class="footer-note">본 계산 결과는 참고용 예상 금액이며 법적 효력을 갖지 않습니다. 공식 지급액은 회사 원천징수 및 실제 근무조건에 따라 달라질 수 있습니다.</p></footer>
+  <script>
+    (() => {
+      const $ = id => document.getElementById(id);
+      const form = $('severance-form'), error = $('error'), result = $('result');
+      const format = value => new Intl.NumberFormat('ko-KR', { maximumFractionDigits: 0 }).format(Math.round(value));
+      const dayMs = 86400000;
+      const localDay = value => { const [y,m,d] = value.split('-').map(Number); return new Date(y, m - 1, d); };
+      const formatDate = date => `${date.getFullYear()}.${String(date.getMonth() + 1).padStart(2, '0')}.${String(date.getDate()).padStart(2, '0')}`;
+      const monthsBefore = (date, months) => {
+        const targetMonth = date.getMonth() - months;
+        const firstDay = new Date(date.getFullYear(), targetMonth, 1);
+        const lastDay = new Date(firstDay.getFullYear(), firstDay.getMonth() + 1, 0).getDate();
+        return new Date(firstDay.getFullYear(), firstDay.getMonth(), Math.min(date.getDate(), lastDay));
+      };
+      const taxServiceYears = (start, end) => {
+        let completeYears = end.getFullYear() - start.getFullYear();
+        const anniversaryDay = Math.min(start.getDate(), new Date(end.getFullYear(), start.getMonth() + 1, 0).getDate());
+        const anniversary = new Date(end.getFullYear(), start.getMonth(), anniversaryDay);
+        if (end < anniversary) completeYears -= 1;
+        const completedAnniversary = new Date(start.getFullYear() + Math.max(completeYears, 0), start.getMonth(), start.getDate());
+        return Math.max(1, completeYears + (end > completedAnniversary ? 1 : 0));
+      };
+      const serviceDeduction = years => {
+        if (years <= 5) return years * 1000000;
+        if (years <= 10) return 5000000 + (years - 5) * 2000000;
+        if (years <= 20) return 15000000 + (years - 10) * 2500000;
+        return 40000000 + (years - 20) * 3000000;
+      };
+      const convertedDeduction = pay => {
+        if (pay <= 8000000) return pay;
+        if (pay <= 70000000) return 8000000 + (pay - 8000000) * .6;
+        if (pay <= 100000000) return 45200000 + (pay - 70000000) * .55;
+        if (pay <= 300000000) return 61700000 + (pay - 100000000) * .45;
+        return 151700000 + (pay - 300000000) * .35;
+      };
+      const progressiveTax = base => {
+        if (base <= 14000000) return base * .06;
+        if (base <= 50000000) return base * .15 - 1260000;
+        if (base <= 88000000) return base * .24 - 5760000;
+        if (base <= 150000000) return base * .35 - 15440000;
+        if (base <= 300000000) return base * .38 - 19940000;
+        if (base <= 500000000) return base * .40 - 25940000;
+        if (base <= 1000000000) return base * .42 - 35940000;
+        return base * .45 - 65940000;
+      };
+      form.addEventListener('submit', event => {
+        event.preventDefault(); error.classList.remove('show'); result.classList.remove('show');
+        const startValue = $('start-date').value, endValue = $('end-date').value;
+        const salaries = ['salary-1','salary-2','salary-3'].map(id => Number($(id).value));
+        const bonus = Number($('bonus').value || 0), leavePay = Number($('leave-pay').value || 0), ordinaryWage = Number($('ordinary-wage').value || 0);
+        if (!startValue || !endValue || salaries.some(value => !Number.isFinite(value) || value <= 0) || bonus < 0 || leavePay < 0 || ordinaryWage < 0) return showError('입사일, 퇴사일, 최근 3개월 급여를 정확히 입력해 주세요. 급여는 0원보다 커야 합니다.');
+        const start = localDay(startValue), end = localDay(endValue);
+        if (end <= start) return showError('퇴사일은 입사일보다 이후여야 합니다.');
+        const serviceDays = Math.round((end - start) / dayMs);
+        if (serviceDays < 365) return showError('퇴직금은 원칙적으로 계속 근로기간이 1년 이상인 경우에 계산할 수 있습니다.');
+        // 퇴직일은 제외하고, 퇴직일 직전 3개월의 실제 달력 일수를 사용합니다.
+        const periodStart = monthsBefore(end, 3);
+        const periodDays = Math.round((end - periodStart) / dayMs);
+        const threeMonthSalary = salaries.reduce((sum, value) => sum + value, 0);
+        // 정기상여·평균임금 산입 대상 연차수당: 직전 12개월 지급액의 3/12을 산입합니다.
+        const reflectedBonus = bonus * 3 / 12;
+        const reflectedLeavePay = leavePay * 3 / 12;
+        const threeMonthPay = threeMonthSalary + reflectedBonus + reflectedLeavePay;
+        const averageDailyWage = threeMonthPay / periodDays;
+        const appliedDailyWage = ordinaryWage > averageDailyWage ? ordinaryWage : averageDailyWage;
+        // 퇴직금은 원 단위 반올림값을 확정한 뒤, 표시·세금 계산에 같은 값을 사용합니다.
+        const severance = Math.round(appliedDailyWage * 30 * (serviceDays / 365));
+        const grossSeverance = severance;
+        const taxYears = taxServiceYears(start, end);
+        const yearsDeduction = serviceDeduction(taxYears);
+        const convertedPay = Math.max(0, (grossSeverance - yearsDeduction) * 12 / taxYears);
+        const convertedPayDeduction = convertedDeduction(convertedPay);
+        const taxableBase = Math.max(0, convertedPay - convertedPayDeduction);
+        const convertedTax = Math.max(0, progressiveTax(taxableBase));
+        const incomeTax = Math.floor(convertedTax / 12 * taxYears);
+        const localTax = Math.floor(incomeTax * .1);
+        const netSeverance = grossSeverance - incomeTax - localTax;
+        const years = Math.floor(serviceDays / 365), remainingDays = serviceDays % 365;
+        $('severance').textContent = format(severance);
+        $('gross-severance').textContent = format(grossSeverance) + '원';
+        $('income-tax').textContent = format(incomeTax) + '원';
+        $('local-tax').textContent = format(localTax) + '원';
+        $('net-severance').textContent = format(netSeverance) + '원';
+        $('daily-wage').textContent = format(averageDailyWage) + '원';
+        $('applied-wage').textContent = format(appliedDailyWage) + '원';
+        $('service-period').textContent = years + '년 ' + remainingDays + '일';
+        $('calculation-basis').innerHTML = [
+          `<li><strong>평균임금 산정기간:</strong> ${formatDate(periodStart)} ~ ${formatDate(new Date(end - dayMs))} (${periodDays}일, 퇴직일 제외)</li>`,
+          `<li><strong>최근 3개월 임금:</strong> ${format(threeMonthSalary)}원</li>`,
+          `<li><strong>정기 상여금 반영:</strong> ${format(bonus)}원 × 3/12 = ${format(reflectedBonus)}원</li>`,
+          `<li><strong>연차수당 반영:</strong> ${format(leavePay)}원 × 3/12 = ${format(reflectedLeavePay)}원</li>`,
+          `<li><strong>1일 평균임금:</strong> (${format(threeMonthPay)}원 ÷ ${periodDays}일) = ${format(averageDailyWage)}원</li>`,
+          `<li><strong>적용 1일 임금:</strong> ${ordinaryWage > 0 ? `평균임금 ${format(averageDailyWage)}원과 통상임금 ${format(ordinaryWage)}원을 비교해 ${format(appliedDailyWage)}원 적용` : `통상임금 미입력으로 평균임금 ${format(averageDailyWage)}원 적용`}</li>`,
+          `<li><strong>예상 퇴직금:</strong> ${format(appliedDailyWage)}원 × 30일 × (${serviceDays}일 ÷ 365일) = ${format(severance)}원</li>`,
+          `<li><strong>세법상 근속연수:</strong> ${taxYears}년 (1년 미만의 남은 기간은 1년으로 계산)</li>`,
+          `<li><strong>근속연수공제:</strong> ${format(yearsDeduction)}원</li>`,
+          `<li><strong>환산급여:</strong> (세전 퇴직금 − 근속연수공제) × 12 ÷ ${taxYears}년 = ${format(convertedPay)}원</li>`,
+          `<li><strong>환산급여공제 후 과세표준:</strong> ${format(convertedPay)}원 − ${format(convertedPayDeduction)}원 = ${format(taxableBase)}원</li>`,
+          `<li><strong>예상 퇴직소득세:</strong> 환산산출세액 ÷ 12 × ${taxYears}년 = ${format(incomeTax)}원 (지방소득세 ${format(localTax)}원 별도)</li>`
+        ].join('');
+        result.classList.add('show'); result.scrollIntoView({ behavior:'smooth', block:'nearest' });
+      });
+      function showError(message) { error.textContent = message; error.classList.add('show'); error.scrollIntoView({ behavior:'smooth', block:'nearest' }); }
+    })();
+  </script>
+</body>
+</html>
