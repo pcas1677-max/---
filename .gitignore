@@ -1,0 +1,13 @@
+# Cloudflare Wrangler local state and generated artifacts
+.wrangler/
+
+# Dependencies and local environment files
+node_modules/
+.env
+.env.*
+!.env.example
+
+# Operating system and editor files
+.DS_Store
+Thumbs.db
+.vscode/

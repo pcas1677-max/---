@@ -1,0 +1,8 @@
+{
+  "$schema": "https://unpkg.com/wrangler@latest/config-schema.json",
+  "name": "retirement-pay-calculator",
+  "compatibility_date": "2026-09-06",
+  "assets": {
+    "directory": "./public"
+  }
+}
