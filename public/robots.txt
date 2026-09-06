@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://retirement-pay-calculator.pcas1677.workers.dev/sitemap.xml
